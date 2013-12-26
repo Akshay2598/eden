@@ -3962,13 +3962,14 @@ class org_SiteRepresent(S3Represent):
                              multiple=multiple)
 
     # -------------------------------------------------------------------------
-    def bulk(self, values, rows=None, list_type=False, show_link=True):
+    def bulk(self, values, rows=None, list_type=False, show_link=True, include_blank=True):
         """
             Represent multiple values as dict {value: representation}
 
             @param values: list of values
             @param rows: the referenced rows (if values are foreign keys)
             @param show_link: render each representation as link
+            @param include_blank: Also include a blank value
 
             @return: a dict {value: representation}
         """
@@ -3997,7 +3998,8 @@ class org_SiteRepresent(S3Represent):
                     labels[v] = self.default
         else:
             labels = {}
-        labels[None] = self.none
+        if include_blank:
+            labels[None] = self.none
         return labels
 
     # -------------------------------------------------------------------------
